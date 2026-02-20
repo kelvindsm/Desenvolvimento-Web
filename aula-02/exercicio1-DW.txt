@@ -1,0 +1,5 @@
+1 - Simulação de formulário para uma academia para atletas de alto rendimento;
+2 - Falar das ferramentas(Antigravity), linguagens(HTML, CSS), recursos(formulários/ tabelas / listas);
+3 - Computador, IA, Antigravity;
+4 - Resultados do desenvolvimento, aplicação da paleta de cores...
+5 - Conclusões do desenvolvimento: o objetivo foi alcançado?
