@@ -1,0 +1,125 @@
+/* define o plano de fundo */
+html {
+    background-image: url('foto.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+h1, h2{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+/* container de alinhamento dos cards (lado a lado) */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* estilização do card */
+article.card {
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(18.5px);
+    -webkit-backdrop-filter: blur(18.5px);
+    border: 1px solid rgba(255, 255, 255, 0.59);
+
+    border-radius: 20px;
+    padding: 25px;
+    width: 100%; 
+    max-width: 350px;
+    box-shadow: 0 20px 0px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    text-align: center;
+    margin: 0;
+}
+
+/* efeito hover dos cards */
+article.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* titulos e paragrafo do card */
+article.card h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+    color: #222;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+article.card p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0 0 20px 0;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* estilo da tag audio */
+audio {
+    width: 100%;
+    height: 45px;
+    margin: 15px 0;
+    border-radius: 10px;
+}
+
+/* estilo do footer do card */
+article.card footer {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #888;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    font-style: italic;
+}
+
+/* estilizacao do menu */
+ul.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #ff8c00;
+    overflow: hidden;
+}
+
+ul.menu li {
+    float: left;
+}
+
+ul.menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+ul.menu li a:hover {
+    background-color: cornflowerblue;
+}
+
+/* rodape do site */
+
+#rodape-site{
+    text-align: center;
+    font-style: italic;
+}
+
+#apresentacao-cantor{
+    display: block;
+    margin-left: 85%;
+    margin-right: 5%;
+    margin-top: 16px;
+    padding: 8px;
+    border: white 4px dashed;
+}
