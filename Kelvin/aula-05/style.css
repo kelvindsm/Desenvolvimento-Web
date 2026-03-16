@@ -1,3 +1,17 @@
+/* reset global (corrigido o erro de digitação) */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #fff; /* Ajustado para branco devido ao fundo escuro */
+        background: #000; /* Fundo base escuro */
+    }
+
     /* container de alinhamento dos cards (lado a lado) */
     .cards-container {
         display: flex;
@@ -5,23 +19,22 @@
         justify-content: center;
         gap: 30px;
         padding: 20px;
+        /* CORREÇÃO DO EIXO Z: Mantém os cards abaixo do menu */
+        position: relative;
+        z-index: 1; 
     }
 
     /* estilização do card */
     article.card {
-        /* From https://css.glass */
         background: rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 20px; /* Unificado */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), 0 20px 0px rgba(0, 0, 0, 0.15); /* Mesclado */
         backdrop-filter: blur(18.5px);
         -webkit-backdrop-filter: blur(18.5px);
         border: 1px solid rgba(255, 255, 255, 0.59);
-
-        border-radius: 20px;
         padding: 25px;
         width: 100%;
         max-width: 350px;
-        box-shadow: 0 20px 0px rgba(0, 0, 0, 0.15);
         transition: all 0.3s ease;
         text-align: center;
         margin: 0;
@@ -30,20 +43,20 @@
     /* efeito hover dos cards */
     article.card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); /* Sombra mais escura no hover para destacar */
     }
 
-    /* titulos e paragrafo do card */
+    /* titulos e paragrafo do card (Cores atualizadas para fundo escuro) */
     article.card h2 {
         margin: 0 0 10px 0;
         font-size: 1.5rem;
-        color: #222;
+        color: #ffffff;
         font-weight: 700;
         font-family: Arial, Helvetica, sans-serif;
     }
 
     article.card p {
-        color: #666;
+        color: #e0e0e0;
         font-size: 1rem;
         margin: 0 0 20px 0;
         font-weight: 500;
@@ -54,8 +67,8 @@
     article.card footer {
         margin-top: 20px;
         font-size: 0.8rem;
-        color: #888;
-        border-top: 1px solid #eee;
+        color: #bbbbbb;
+        border-top: 1px solid rgba(255, 255, 255, 0.2); /* Linha sutil clara */
         padding-top: 15px;
         font-style: italic;
     }
@@ -64,19 +77,6 @@
         background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
             url('/Gemini_Generated_Image_taw6ultaw6ultaw6.png') center/cover no-repeat fixed;
         min-height: 100vh;
-    }
-
-    important * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background: #f8f9fa;
     }
 
     header {
@@ -105,14 +105,16 @@
     }
 
     .content {
-        background: white;
+        background: rgba(255, 255, 255, 0.1); /* Adaptado para vidro escuro */
+        backdrop-filter: blur(10px);
         padding: 3rem;
         border-radius: 15px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .content h2 {
-        color: #667eea;
+        color: #8fa1ff; /* Azul mais claro para ler melhor */
         font-size: 1.8rem;
         margin-bottom: 1.5rem;
         border-bottom: 3px solid #764ba2;
@@ -127,16 +129,18 @@
 
     .content p:last-child {
         font-style: italic;
-        color: #555;
+        color: #ccc;
     }
 
     /* Menu Styles */
     nav {
-        background: linear-gradient(135deg, #333, #555);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, rgba(51, 51, 51, 0.9), rgba(85, 85, 85, 0.9));
+        backdrop-filter: blur(5px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         position: sticky;
         top: 0;
-        z-index: 1000;
+        /* CORREÇÃO DO EIXO Z: Garante que o menu e submenus fiquem sempre no topo */
+        z-index: 1000; 
     }
 
     .menu {
@@ -163,13 +167,17 @@
         transform: translateY(-2px);
     }
 
+    /* Submenu atualizado para modo escuro / glassmorphism */
     .submenu {
         position: absolute;
         top: 100%;
         left: 0;
-        background: white;
+        background: rgba(40, 40, 40, 0.95); /* Fundo escuro translúcido */
+        backdrop-filter: blur(10px); /* Efeito de vidro */
         min-width: 280px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+        border-radius: 0 0 8px 8px; /* Cantos arredondados embaixo */
         opacity: 0;
         visibility: hidden;
         transform: translateY(-10px);
@@ -186,13 +194,13 @@
     .submenu li a {
         display: block;
         padding: 1rem 1.5rem;
-        border-bottom: 1px solid #eee;
-        color: #333;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Linha divisória suave */
+        color: #f0f0f0; /* Texto claro */
     }
 
     .submenu li a:hover {
-        background: #f8f9fa;
-        color: #333;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
         padding-left: 2rem;
     }
 
@@ -226,7 +234,7 @@
             left: -100%;
             width: 100%;
             height: calc(100vh - 70px);
-            background: #333;
+            background: #222; /* Fundo mais escuro para o mobile */
             flex-direction: column;
             transition: left 0.3s ease;
         }
@@ -237,15 +245,16 @@
 
         .menu>li {
             width: 100%;
-            border-bottom: 1px solid #555;
+            border-bottom: 1px solid #444;
         }
 
         .submenu {
             position: static;
             max-height: 0;
             overflow: hidden;
-            background: #444;
+            background: #333; /* Contraste para o submenu mobile */
             box-shadow: none;
+            border: none;
         }
 
         .menu>li:hover .submenu {
