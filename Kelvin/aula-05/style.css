@@ -251,12 +251,16 @@ article.card:hover {
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
+article.card h2, p{
+    font-family: consolas;
+    text-align: justify;
+}
+
 article.card h2 {
     margin: 0 0 10px 0;
     font-size: 1.5rem;
     color: #ffffff;
     font-weight: 700;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 article.card p {
@@ -264,7 +268,6 @@ article.card p {
     font-size: 1rem;
     margin: 0 0 20px 0;
     font-weight: 500;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 article.card footer {
@@ -274,6 +277,7 @@ article.card footer {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding-top: 15px;
     font-style: italic;
+    text-align: center;
 }
 
 /* Estilos dos botões de navegação */
