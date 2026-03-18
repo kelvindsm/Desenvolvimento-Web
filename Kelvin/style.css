@@ -1,6 +1,4 @@
-/* =========================================
-   RESET E CONFIGURAÇÕES GLOBAIS
-   ========================================= */
+/* configurações globais*/
 * {
     margin: 0;
     padding: 0;
@@ -14,19 +12,15 @@ body {
     background: #000;
 }
 
-/* =========================================
-   ESTILOS DO MENU (NAV)
-   ========================================= */
+/* estilo do menu nav */
 nav {
-    background: rgba(10, 10, 10, 0.6);
+    background: rgba(10, 10, 10, 0.01);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.01);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     position: sticky;
     top: 0;
-
-    /* CORREÇÃO DO EIXO Z: Garante o menu acima de tudo */
     z-index: 9999 !important;
     transform: translateZ(10px);
 }
@@ -53,13 +47,13 @@ nav {
 }
 
 .menu>li>a:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.01);
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: inset 0 -2px 0 0 #5ff785;
 }
 
-/* Submenu em formato de vidro escuro */
+/* submenus */
 .submenu {
     position: absolute;
     top: 100%;
@@ -96,7 +90,7 @@ nav {
     padding-left: 2rem;
 }
 
-/* Menu Mobile (Hamburguer) */
+/* menu hamburger */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -159,9 +153,7 @@ nav {
     }
 }
 
-/* =========================================
-   ESTILOS DO CABEÇALHO (HEADER)
-   ========================================= */
+/* estilo do header */
 header {
     font-family: Consolas, 'Courier New', monospace;
     color: white;
@@ -169,9 +161,7 @@ header {
     padding: 3rem 2rem;
     margin: 3rem auto;
     max-width: 800px;
-
-    /* Efeito de Vidro (Glassmorphism) */
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.01);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -191,19 +181,14 @@ header p {
     margin: 0 auto;
     opacity: 0.9;
     color: #5ff785;
-    /* Combinando com o fundo 3D */
 }
 
-/* =========================================
-   ESTILOS DO CARROSSEL E CARDS
-   ========================================= */
+/* estilo do carrossel e cards */
 .carousel-wrapper {
     position: relative;
-    /* Largura para caber exatamente 3 cards + gaps + botões */
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 70px;
-    /* Espaço nas laterais para os botões respirarem */
     z-index: 1;
 }
 
@@ -213,12 +198,8 @@ header p {
     overflow-x: auto;
     gap: 30px;
     padding: 20px 5px;
-
-    /* Garante a transição fluida nativa do navegador */
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-
-    /* Esconde a barra de rolagem */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -227,14 +208,11 @@ header p {
     display: none;
 }
 
-/* Ajuste no card para ele ter tamanho fixo e alinhar pelo início */
+/* ajuste do tamanho do card */
 article.card {
     flex: 0 0 350px;
-    /* Garante que o card terá SEMPRE 350px de largura exatos */
     scroll-snap-align: start;
-    /* Faz o card parar perfeitamente alinhado */
-
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.01);
     border-radius: 20px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), 0 20px 0px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(18.5px);
@@ -252,7 +230,7 @@ article.card:hover {
 }
 
 article.card h2, p{
-    font-family: consolas;
+    font-family: 'Courier New', Courier, monospace;
     text-align: justify;
 }
 
@@ -280,14 +258,14 @@ article.card footer {
     text-align: center;
 }
 
-/* Estilos dos botões de navegação */
+/* estilos dos botões de navegação */
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.01);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 01px solid rgba(255, 255, 255, 0.05);
     color: white;
     font-size: 24px;
     width: 50px;
@@ -302,7 +280,7 @@ article.card footer {
 }
 
 .carousel-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 15px rgba(95, 247, 133, 0.4);
     color: #5ff785;
 }
