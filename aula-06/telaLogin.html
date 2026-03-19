@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Profissional</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(90deg, #0000BD 0%, #367CDD 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 340px;
+        }
+
+        .card header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+
+        .card header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+            margin-left: 2px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background-color: #fff;
+            box-sizing: border-box;
+            font-size: 15px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #8e7dff;
+        }
+
+        input::placeholder {
+            color: #bbb;
+        }
+
+        .btn-acessar {
+            padding: 17px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            border: 1px solid #155EC4;
+            background-color: white;
+            color: #155EC4;
+            box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 15px;
+            font-weight: bold;
+            transition: all 0.5s ease;
+        }
+
+        .btn-acessar:hover {
+            letter-spacing: 3px;
+            background-color: #155EC4;
+            color: #ffffff;
+            box-shadow: rgba(11, 83, 184, 0.6) 0px 7px 29px 0px;
+        }
+
+        .btn-acessar:active {
+            letter-spacing: 3px;
+            background-color: #0B53B8;
+            color: #ffffff;
+            box-shadow: rgba(11, 83, 184, 0) 0px 0px 0px 0px;
+            transform: translateY(10px);
+            transition: 100ms;
+        }
+    </style>
+</head>
+
+<body>
+
+    <article class="card">
+        <header>
+            <h1 style="text-align: center;">Login</h1>
+        </header>
+
+        <form id="loginForm">
+            <label for="matricula">Matrícula</label>
+            <input type="text" id="matricula" name="matricula" required placeholder="Ex: 123456" />
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required placeholder="*******" />
+
+            <label for="cargo">Cargo</label>
+            <select id="cargo" name="cargo" required>
+                <option value="" disabled selected>Selecione seu cargo</option>
+                <option value="diretor">Médico(a)</option>
+                <option value="analista">Enfermeiro(a)</option>
+                <option value="tecnico">Técnico(a)</option>
+                <option value="farmaceutico">Farmacêutico(a)</option>
+                <option value="psicologo">Psicólogo(a)</option>
+            </select>
+            <footer style="text-align: center;"><button type="submit" class="btn-acessar">Acessar Sistema</button>
+            </footer>
+        </form>
+    </article>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const matricula = document.getElementById('matricula').value;
+            const senha = document.getElementById('senha').value;
+            const cargo = document.getElementById('cargo').value;
+
+            if (matricula && senha && cargo) {
+                alert('Login realizado com sucesso!\nMatrícula: ' + matricula + '\nCargo: ' + cargo);
+            } else {
+                alert('Por favor, preencha todos os campos!');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
