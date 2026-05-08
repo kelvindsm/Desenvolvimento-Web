@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PANIN I - Copa do Mundo 2026</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --panini-blue: #1e3a8a;
+            --panini-yellow: #fbbf24;
+            --panini-red: #dc2626;
+        }
+
+        body {
+            padding-top: 70px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .navbar-panini {
+            background: linear-gradient(135deg, var(--panini-blue) 0%, #2e5cb8 100%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .nav-section-title {
+            font-weight: bold;
+            color: var(--panini-blue);
+            padding: 10px 20px;
+            background: #f3f4f6;
+            margin: 10px 0;
+            border-left: 4px solid var(--panini-yellow);
+        }
+
+        .nav-link {
+            padding: 8px 20px;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--panini-blue);
+            color: white;
+        }
+
+        .nav-link img {
+            width: 24px;
+            height: 16px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--panini-blue) 0%, var(--panini-red) 100%);
+            color: white;
+            padding: 60px 0;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .group-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .group-header {
+            background: var(--panini-blue);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .team-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.3s;
+        }
+
+        .team-row:hover {
+            background: #f9fafb;
+        }
+
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .team-flag {
+            width: 30px;
+            height: 20px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        .team-stats {
+            display: flex;
+            gap: 20px;
+            font-weight: 500;
+        }
+
+        .bracket-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .bracket-stage {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0 20px;
+            min-width: 200px;
+        }
+
+        .bracket-match {
+            background: #f3f4f6;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+
+        .bracket-match:hover {
+            border-color: var(--panini-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .bracket-match.winner {
+            background: var(--panini-yellow);
+            border-color: var(--panini-yellow);
+        }
+
+        .bracket-match.final {
+            background: var(--panini-blue);
+            color: white;
+            border-color: var(--panini-blue);
+        }
+
+        .match-team {
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .match-team.winner {
+            font-weight: bold;
+            color: var(--panini-blue);
+        }
+
+        .section-title {
+            color: var(--panini-blue);
+            border-bottom: 3px solid var(--panini-yellow);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#sidebar-nav" data-bs-offset="100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-panini fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-trophy-fill text-warning me-2"></i>PANIN I - Copa 2026
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#grupos">Grupos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#chaveamento">Chaveamento</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar com Scrollspy -->
+    <div class="sidebar d-none d-lg-block" id="sidebar-nav">
+        <div class="nav-section-title">
+            <i class="bi bi-collection-fill me-2"></i>SELEÇÕES
+        </div>
+
+        <!-- Grupo A -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-a">
+                <img src="https://flagcdn.com/w40/us.png" alt="EUA" class="img-fluid"> EUA
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-a">
+                <img src="https://flagcdn.com/w40/mx.png" alt="México" class="img-fluid"> México
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-a">
+                <img src="https://flagcdn.com/w40/ca.png" alt="Canadá" class="img-fluid"> Canadá
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-a">
+                <img src="https://flagcdn.com/w40/de.png" alt="Alemanha" class="img-fluid"> Alemanha
+            </a>
+        </div>
+
+        <!-- Grupo B -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-b">
+                <img src="https://flagcdn.com/w40/ar.png" alt="Argentina" class="img-fluid"> Argentina
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-b">
+                <img src="https://flagcdn.com/w40/uy.png" alt="Uruguai" class="img-fluid"> Uruguai
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-b">
+                <img src="https://flagcdn.com/w40/br.png" alt="Brasil" class="img-fluid"> Brasil
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-b">
+                <img src="https://flagcdn.com/w40/cl.png" alt="Chile" class="img-fluid"> Chile
+            </a>
+        </div>
+
+        <!-- Grupo C -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-c">
+                <img src="https://flagcdn.com/w40/es.png" alt="Espanha" class="img-fluid"> Espanha
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-c">
+                <img src="https://flagcdn.com/w40/pt.png" alt="Portugal" class="img-fluid"> Portugal
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-c">
+                <img src="https://flagcdn.com/w40/ng.png" alt="Nigéria" class="img-fluid"> Nigéria
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-c">
+                <img src="https://flagcdn.com/w40/gh.png" alt="Gana" class="img-fluid"> Gana
+            </a>
+        </div>
+
+        <!-- Grupo D -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-d">
+                <img src="https://flagcdn.com/w40/fr.png" alt="França" class="img-fluid"> França
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-d">
+                <img src="https://flagcdn.com/w40/it.png" alt="Itália" class="img-fluid"> Itália
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-d">
+                <img src="https://flagcdn.com/w40/jp.png" alt="Japão" class="img-fluid"> Japão
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-d">
+                <img src="https://flagcdn.com/w40/kr.png" alt="Coreia do Sul" class="img-fluid"> Coreia do Sul
+            </a>
+        </div>
+
+        <!-- Grupo E -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-e">
+                <img src="https://flagcdn.com/w40/gb.png" alt="Inglaterra" class="img-fluid"> Inglaterra
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-e">
+                <img src="https://flagcdn.com/w40/be.png" alt="Bélgica" class="img-fluid"> Bélgica
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-e">
+                <img src="https://flagcdn.com/w40/eg.png" alt="Egito" class="img-fluid"> Egito
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-e">
+                <img src="https://flagcdn.com/w40/au.png" alt="Austrália" class="img-fluid"> Austrália
+            </a>
+        </div>
+
+        <!-- Grupo F -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-f">
+                <img src="https://flagcdn.com/w40/nl.png" alt="Holanda" class="img-fluid"> Holanda
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-f">
+                <img src="https://flagcdn.com/w40/pl.png" alt="Polônia" class="img-fluid"> Polônia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-f">
+                <img src="https://flagcdn.com/w40/sn.png" alt="Senegal" class="img-fluid"> Senegal
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-f">
+                <img src="https://flagcdn.com/w40/ec.png" alt="Equador" class="img-fluid"> Equador
+            </a>
+        </div>
+
+        <!-- Grupo G -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-g">
+                <img src="https://flagcdn.com/w40/hr.png" alt="Croácia" class="img-fluid"> Croácia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-g">
+                <img src="https://flagcdn.com/w40/dk.png" alt="Dinamarca" class="img-fluid"> Dinamarca
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-g">
+                <img src="https://flagcdn.com/w40/ma.png" alt="Marrocos" class="img-fluid"> Marrocos
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-g">
+                <img src="https://flagcdn.com/w40/cm.png" alt="Camarões" class="img-fluid"> Camarões
+            </a>
+        </div>
+
+        <!-- Grupo H -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-h">
+                <img src="https://flagcdn.com/w40/ch.png" alt="Suíça" class="img-fluid"> Suíça
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-h">
+                <img src="https://flagcdn.com/w40/rs.png" alt="Sérvia" class="img-fluid"> Sérvia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-h">
+                <img src="https://flagcdn.com/w40/tn.png" alt="Tunísia" class="img-fluid"> Tunísia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-h">
+                <img src="https://flagcdn.com/w40/ir.png" alt="Irã" class="img-fluid"> Irã
+            </a>
+        </div>
+
+        <!-- Grupo I -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-i">
+                <img src="https://flagcdn.com/w40/se.png" alt="Suécia" class="img-fluid"> Suécia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-i">
+                <img src="https://flagcdn.com/w40/no.png" alt="Noruega" class="img-fluid"> Noruega
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-i">
+                <img src="https://flagcdn.com/w40/ci.png" alt="Costa do Marfim" class="img-fluid"> Costa do Marfim
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-i">
+                <img src="https://flagcdn.com/w40/jm.png" alt="Jamaica" class="img-fluid"> Jamaica
+            </a>
+        </div>
+
+        <!-- Grupo J -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-j">
+                <img src="https://flagcdn.com/w40/co.png" alt="Colômbia" class="img-fluid"> Colômbia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-j">
+                <img src="https://flagcdn.com/w40/pe.png" alt="Peru" class="img-fluid"> Peru
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-j">
+                <img src="https://flagcdn.com/w40/za.png" alt="África do Sul" class="img-fluid"> África do Sul
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-j">
+                <img src="https://flagcdn.com/w40/sa.png" alt="Arábia Saudita" class="img-fluid"> Arábia Saudita
+            </a>
+        </div>
+
+        <!-- Grupo K -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-k">
+                <img src="https://flagcdn.com/w40/cz.png" alt="Rep. Tcheca" class="img-fluid"> Rep. Tcheca
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-k">
+                <img src="https://flagcdn.com/w40/at.png" alt="Áustria" class="img-fluid"> Áustria
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-k">
+                <img src="https://flagcdn.com/w40/al.png" alt="Argélia" class="img-fluid"> Argélia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-k">
+                <img src="https://flagcdn.com/w40/hn.png" alt="Honduras" class="img-fluid"> Honduras
+            </a>
+        </div>
+
+        <!-- Grupo L -->
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-l">
+                <img src="https://flagcdn.com/w40/ua.png" alt="Ucrânia" class="img-fluid"> Ucrânia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-l">
+                <img src="https://flagcdn.com/w40/tr.png" alt="Turquia" class="img-fluid"> Turquia
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-l">
+                <img src="https://flagcdn.com/w40/cr.png" alt="Costa Rica" class="img-fluid"> Costa Rica
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="#grupo-l">
+                <img src="https://flagcdn.com/w40/nz.png" alt="Nova Zelândia" class="img-fluid"> Nova Zelândia
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section id="inicio" class="hero-section">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-3">
+                    <i class="bi bi-globe-americas me-3"></i>Copa do Mundo FIFA 2026
+                </h1>
+                <p class="lead mb-4">Acompanhe todos os jogos, classificações e o chaveamento oficial</p>
+                <span class="badge bg-warning text-dark fs-6 px-4 py-2">
+                    <i class="bi bi-star-fill me-2"></i>Parceiro Oficial: PANIN I
+                </span>
+            </div>
+        </section>
+
+        <!-- Fase de Grupos -->
+        <section id="grupos">
+            <h2 class="section-title">
+                <i class="bi bi-table me-2"></i>Fase de Grupos
+            </h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                <div class="col">
+                    <!-- Grupo A -->
+                    <div id="grupo-a" class="group-card">
+                        <div class="group-header">Grupo A</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/us.png" alt="EUA" class="team-flag img-fluid">
+                                <span>EUA</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/mx.png" alt="México" class="team-flag img-fluid">
+                                <span>México</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ca.png" alt="Canadá" class="team-flag img-fluid">
+                                <span>Canadá</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/de.png" alt="Alemanha" class="team-flag img-fluid">
+                                <span>Alemanha</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo B -->
+                    <div id="grupo-b" class="group-card">
+                        <div class="group-header">Grupo B</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ar.png" alt="Argentina" class="team-flag img-fluid">
+                                <span>Argentina</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/uy.png" alt="Uruguai" class="team-flag img-fluid">
+                                <span>Uruguai</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/br.png" alt="Brasil" class="team-flag img-fluid">
+                                <span>Brasil</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/cl.png" alt="Chile" class="team-flag img-fluid">
+                                <span>Chile</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo C -->
+                    <div id="grupo-c" class="group-card">
+                        <div class="group-header">Grupo C</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/es.png" alt="Espanha" class="team-flag img-fluid">
+                                <span>Espanha</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/pt.png" alt="Portugal" class="team-flag img-fluid">
+                                <span>Portugal</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ng.png" alt="Nigéria" class="team-flag img-fluid">
+                                <span>Nigéria</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/gh.png" alt="Gana" class="team-flag img-fluid">
+                                <span>Gana</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo D -->
+                    <div id="grupo-d" class="group-card">
+                        <div class="group-header">Grupo D</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/fr.png" alt="França" class="team-flag img-fluid">
+                                <span>França</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/it.png" alt="Itália" class="team-flag img-fluid">
+                                <span>Itália</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/jp.png" alt="Japão" class="team-flag img-fluid">
+                                <span>Japão</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/kr.png" alt="Coreia do Sul"
+                                    class="team-flag img-fluid">
+                                <span>Coreia do Sul</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo E -->
+                    <div id="grupo-e" class="group-card">
+                        <div class="group-header">Grupo E</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/gb.png" alt="Inglaterra" class="team-flag img-fluid">
+                                <span>Inglaterra</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/be.png" alt="Bélgica" class="team-flag img-fluid">
+                                <span>Bélgica</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/eg.png" alt="Egito" class="team-flag img-fluid">
+                                <span>Egito</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/au.png" alt="Austrália" class="team-flag img-fluid">
+                                <span>Austrália</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo F -->
+                    <div id="grupo-f" class="group-card">
+                        <div class="group-header">Grupo F</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/nl.png" alt="Holanda" class="team-flag img-fluid">
+                                <span>Holanda</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/pl.png" alt="Polônia" class="team-flag img-fluid">
+                                <span>Polônia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/sn.png" alt="Senegal" class="team-flag img-fluid">
+                                <span>Senegal</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ec.png" alt="Equador" class="team-flag img-fluid">
+                                <span>Equador</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo G -->
+                    <div id="grupo-g" class="group-card">
+                        <div class="group-header">Grupo G</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/hr.png" alt="Croácia" class="team-flag img-fluid">
+                                <span>Croácia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/dk.png" alt="Dinamarca" class="team-flag img-fluid">
+                                <span>Dinamarca</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ma.png" alt="Marrocos" class="team-flag img-fluid">
+                                <span>Marrocos</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/cm.png" alt="Camarões" class="team-flag img-fluid">
+                                <span>Camarões</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo H -->
+                    <div id="grupo-h" class="group-card">
+                        <div class="group-header">Grupo H</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ch.png" alt="Suíça" class="team-flag img-fluid">
+                                <span>Suíça</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/rs.png" alt="Sérvia" class="team-flag img-fluid">
+                                <span>Sérvia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/tn.png" alt="Tunísia" class="team-flag img-fluid">
+                                <span>Tunísia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ir.png" alt="Irã" class="team-flag img-fluid">
+                                <span>Irã</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo I -->
+                    <div id="grupo-i" class="group-card">
+                        <div class="group-header">Grupo I</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/se.png" alt="Suécia" class="team-flag img-fluid">
+                                <span>Suécia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/no.png" alt="Noruega" class="team-flag img-fluid">
+                                <span>Noruega</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ci.png" alt="Costa do Marfim"
+                                    class="team-flag img-fluid">
+                                <span>Costa do Marfim</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/jm.png" alt="Jamaica" class="team-flag img-fluid">
+                                <span>Jamaica</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo J -->
+                    <div id="grupo-j" class="group-card">
+                        <div class="group-header">Grupo J</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/co.png" alt="Colômbia" class="team-flag img-fluid">
+                                <span>Colômbia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/pe.png" alt="Peru" class="team-flag img-fluid">
+                                <span>Peru</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/za.png" alt="África do Sul"
+                                    class="team-flag img-fluid">
+                                <span>África do Sul</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/sa.png" alt="Arábia Saudita"
+                                    class="team-flag img-fluid">
+                                <span>Arábia Saudita</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo K -->
+                    <div id="grupo-k" class="group-card">
+                        <div class="group-header">Grupo K</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/cz.png" alt="Rep. Tcheca" class="team-flag img-fluid">
+                                <span>Rep. Tcheca</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/at.png" alt="Áustria" class="team-flag img-fluid">
+                                <span>Áustria</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/al.png" alt="Argélia" class="team-flag img-fluid">
+                                <span>Argélia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/hn.png" alt="Honduras" class="team-flag img-fluid">
+                                <span>Honduras</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Grupo L -->
+                    <div id="grupo-l" class="group-card">
+                        <div class="group-header">Grupo L</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/ua.png" alt="Ucrânia" class="team-flag img-fluid">
+                                <span>Ucrânia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/tr.png" alt="Turquia" class="team-flag img-fluid">
+                                <span>Turquia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/cr.png" alt="Costa Rica" class="team-flag img-fluid">
+                                <span>Costa Rica</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <img src="https://flagcdn.com/w40/nz.png" alt="Nova Zelândia"
+                                    class="team-flag img-fluid">
+                                <span>Nova Zelândia</span>
+                            </div>
+                            <div class="team-stats">
+                                <span>P: 0</span>
+                                <span>PG: 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chaveamento -->
+        <section id="chaveamento" class="mt-5">
+            <h2 class="section-title">
+                <i class="bi bi-trophy me-2"></i>Chaveamento - Fase Final
+            </h2>
+
+            <div class="bracket-container">
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <strong>Formato 2026:</strong> 32 times classificados (2 primeiros de cada grupo + 8 melhores
+                    terceiros)
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center overflow-auto" style="min-width: 1000px;">
+                    <!-- LEFT SIDE -->
+                    <div class="bracket-side d-flex flex-row">
+                        <!-- Oitavas Esquerda -->
+                        <div class="bracket-stage">
+                            <h6 class="text-center mb-3 fw-bold text-primary">Oitavas de final</h6>
+                            <div class="bracket-match">
+                                <div class="match-team">1º A</div>
+                                <div class="match-team">3º G/H/I</div>
+                            </div>
+                            <div class="bracket-match">
+                                <div class="match-team">1º C</div>
+                                <div class="match-team">3º D/E/F</div>
+                            </div>
+                            <div class="bracket-match mt-4">
+                                <div class="match-team">1º E</div>
+                                <div class="match-team">3º J/K/L</div>
+                            </div>
+                            <div class="bracket-match">
+                                <div class="match-team">1º G</div>
+                                <div class="match-team">3º D/E/F</div>
+                            </div>
+                            <div class="bracket-match mt-4">
+                                <div class="match-team">1º I</div>
+                                <div class="match-team">3º A/B/C</div>
+                            </div>
+                            <div class="bracket-match">
+                                <div class="match-team">1º K</div>
+                                <div class="match-team">3º G/H/I</div>
+                            </div>
+                            <div class="bracket-match mt-4">
+                                <div class="match-team">1º B</div>
+                                <div class="match-team">3º D/E/F</div>
+                            </div>
+                            <div class="bracket-match">
+                                <div class="match-team">1º D</div>
+                                <div class="match-team">3º J/K/L</div>
+                            </div>
+                        </div>
+
+                        <!-- Quartas Esquerda -->
+                        <div class="bracket-stage" style="margin-top: 40px;">
+                            <h6 class="text-center mb-3 fw-bold text-primary">Quartas</h6>
+                            <div class="bracket-match">
+                                <div class="match-team">Vencedor 1</div>
+                                <div class="match-team">Vencedor 2</div>
+                            </div>
+                            <div class="bracket-match" style="margin-top: 75px;">
+                                <div class="match-team">Vencedor 3</div>
+                                <div class="match-team">Vencedor 4</div>
+                            </div>
+                            <div class="bracket-match" style="margin-top: 75px;">
+                                <div class="match-team">Vencedor 5</div>
+                                <div class="match-team">Vencedor 6</div>
+                            </div>
+                            <div class="bracket-match" style="margin-top: 75px;">
+                                <div class="match-team">Vencedor 7</div>
+                                <div class="match-team">Vencedor 8</div>
+                            </div>
+                        </div>
+
+                        <!-- Semifinal Esquerda -->
+                        <div class="bracket-stage" style="margin-top: 100px;">
+                            <h6 class="text-center mb-3 fw-bold text-primary">Semifinal</h6>
+                            <div class="bracket-match">
+                                <div class="match-team">Vencedor QF1</div>
+                                <div class="match-team">Vencedor QF2</div>
+                            </div>
+                            <div class="bracket-match" style="margin-top: 180px;">
+                                <div class="match-team">Vencedor QF3</div>
+                                <div class="match-team">Vencedor QF4</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CENTER (FINAL) -->
+                    <div class="bracket-center d-flex flex-column justify-content-center align-items-center px-4">
+                        <h4 class="text-center mb-3 fw-bold text-primary">Final</h4>
+                        <div class="bracket-match final mb-4" style="min-width: 200px;">
+                            <div class="match-team justify-content-center">Vencedor SF1</div>
+                            <div class="match-team justify-content-center">Vencedor SF2</div>
+                        </div>
+
+                        <div class="bracket-match winner text-center"
+                            style="background: gold; border-color: gold; min-width: 200px;">
+                            <div class="match-team justify-content-center fw-bold">
+                                <i class="bi bi-trophy-fill me-2"></i>CAMPEÃO
+                            </div>
+                        </div>
+
+                        <h6 class="text-center mt-5 mb-2 fw-bold text-secondary">3º Lugar</h6>
+                        <div class="bracket-match" style="min-width: 150px;">
+                            <div class="match-team justify-content-center">Perdedor SF1</div>
+                            <div class="match-team justify-content-center">Perdedor SF2</div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT SIDE -->
+                    <div class="bracket-side d-flex flex-row-reverse">
+                        <!-- Oitavas Direita -->
+                        <div class="bracket-stage">
+                            <h6 class="text-center mb-3 fw-bold text-primary">Oitavas de final</h6>
+                            <div class="bracket-match">
+                                <div class="match-team">2º B</div>
+                                <div class="match-team">3º A/B/C</div>
+                            </div>
+                            <div class="bracket-match">
+                                <div class="match-team">2º D</div>
+                                <div class="match-team">3º G/H/I</div>
+                            </div>
+                            <div class="bracket-match mt-4">
+                                <div class="match-team">2º F</div>
+                                <div class="match-team">3º A/B/C</div>
+                            </div>
+                            <div class="bracket-match">
+                                <div class="match-team">2º H</div>
+                                <div class="match-team">3º J/K/L</div>
+                            </div>
+                            <div class="bracket-match mt-4">
+                                <div class="match-team">2º J</div>
+                                <div class="match-team">3º D/E/F</div>
+                            </div>
+                            <div class="bracket-match">
+                                <div class="match-team">2º L</div>
+                                <div class="match-team">3º J/K/L</div>
+                            </div>
+                            <div class="bracket-match mt-4">
+                                <div class="match-team">2º A</div>
+                                <div class="match-team">3º G/H/I</div>
+                            </div>
+                            <div class="bracket-match">
+                                <div class="match-team">2º C</div>
+                                <div class="match-team">3º A/B/C</div>
+                            </div>
+                        </div>
+
+                        <!-- Quartas Direita -->
+                        <div class="bracket-stage" style="margin-top: 40px;">
+                            <h6 class="text-center mb-3 fw-bold text-primary">Quartas</h6>
+                            <div class="bracket-match">
+                                <div class="match-team">Vencedor 9</div>
+                                <div class="match-team">Vencedor 10</div>
+                            </div>
+                            <div class="bracket-match" style="margin-top: 75px;">
+                                <div class="match-team">Vencedor 11</div>
+                                <div class="match-team">Vencedor 12</div>
+                            </div>
+                            <div class="bracket-match" style="margin-top: 75px;">
+                                <div class="match-team">Vencedor 13</div>
+                                <div class="match-team">Vencedor 14</div>
+                            </div>
+                            <div class="bracket-match" style="margin-top: 75px;">
+                                <div class="match-team">Vencedor 15</div>
+                                <div class="match-team">Vencedor 16</div>
+                            </div>
+                        </div>
+
+                        <!-- Semifinal Direita -->
+                        <div class="bracket-stage" style="margin-top: 100px;">
+                            <h6 class="text-center mb-3 fw-bold text-primary">Semifinal</h6>
+                            <div class="bracket-match">
+                                <div class="match-team">Vencedor QF5</div>
+                                <div class="match-team">Vencedor QF6</div>
+                            </div>
+                            <div class="bracket-match" style="margin-top: 180px;">
+                                <div class="match-team">Vencedor QF7</div>
+                                <div class="match-team">Vencedor QF8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-5 py-4 bg-dark text-white text-center">
+            <div class="container">
+                <p class="mb-2"><i class="bi bi-trophy-fill text-warning me-2"></i>PANIN I - Copa do Mundo 2026</p>
+                <p class="small mb-0">Site oficial desenvolvido com Bootstrap 5 | Responsivo e Moderno</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
